@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  dashboard:
+    build: .
+    container_name: covid_dashboard
+    ports:
+      - "8501:8501"
+    volumes:
+      # 코드 수정 시 즉시 반영
+      - ./:/app
+      # 데이터 파일 영구 보존 (컨테이너 재시작해도 다운로드 다시 안 하게)
+      - streamlit_data:/app/data
+    restart: always
+
+volumes:
+  streamlit_data:
