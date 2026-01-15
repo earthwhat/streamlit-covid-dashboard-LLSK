@@ -143,7 +143,7 @@ with c1:
 </div>
 """
     st.markdown(header_html, unsafe_allow_html=True)
-    with st.expander("📝 전체 소스 코드 보기", expanded=True):
+    with st.expander("Copy Code", expanded=True):
         st.code(f'''
 st.markdown("""
 <div style='display: flex; align-items: center; margin-bottom: 10px;'>
@@ -159,15 +159,15 @@ st.markdown("""
 with c2:
     st.subheader("Boxed Header")
     boxed_html = f"""
-<div style='background: {style.COLORS['bg_card']}; padding: 15px; border-radius: 12px; border: 1px solid {style.COLORS['border']}; display: flex; align-items: center;'>
+<div style='display: flex; align-items: center; margin-bottom: 10px;'>
     <div class="icon-box" style="margin-right:15px">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{style.COLORS['info']}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{style.COLORS['info']}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
     </div>
-    <span style="font-weight:600; font-size: 18px; color:white;">Global Statistics</span>
+    <h3 style='margin: 0; color: {style.COLORS['text_main']};'>Global Statistics</h3>
 </div>
 """
     st.markdown(boxed_html, unsafe_allow_html=True)
-    with st.expander("📝 전체 소스 코드 보기", expanded=True):
+    with st.expander("Copy Code", expanded=True):
         st.code(f'''
 st.markdown("""
 <div style='background: {style.COLORS['bg_card']}; padding: 15px; border-radius: 12px; border: 1px solid {style.COLORS['border']}; display: flex; align-items: center;'>
@@ -200,7 +200,7 @@ with col_ui1:
         </div>
     </div>
     """, unsafe_allow_html=True)
-    with st.expander("📝 소스 코드 보기", expanded=True):
+    with st.expander("Copy Code", expanded=True):
         st.code('''
 # Live Red Dot
 st.markdown('<div class="dot-red"></div> Live', unsafe_allow_html=True)
@@ -221,7 +221,7 @@ with col_ui2:
         </div>
     </div>
     """, unsafe_allow_html=True)
-    with st.expander("📝 소스 코드 보기", expanded=True):
+    with st.expander("Copy Code", expanded=True):
         st.code('''
 st.markdown("""
 <div class="badge badge-danger">
@@ -280,7 +280,7 @@ st.divider()
 # =========================================================
 st.header("5. Chart Guidelines")
 
-st.markdown("#### 🔹 Chart Header Icons")
+st.markdown("#### Chart Header Icons")
 ci1, ci2, ci3, ci4 = st.columns(4)
 with ci1: icon_card_with_code("Bar Chart", '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>')
 with ci2: icon_card_with_code("Trending", '<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>', "success")
@@ -313,11 +313,11 @@ tab1, tab2, tab3, tab4 = st.tabs(["Basic", "Composition", "Radar", "3D Map"])
 with tab1:
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown("#### 🔹 Stacked Bar Chart")
+        st.markdown("#### Stacked Bar Chart")
         fig_stack = px.bar(df_long, x='Date', y='Count', color='Type', color_discrete_sequence=[style.COLORS['primary'], style.COLORS['success'], style.COLORS['info']])
         fig_stack.update_layout(**common_layout)
         st.plotly_chart(fig_stack, use_container_width=True)
-        with st.expander("📝 전체 소스 코드 보기", expanded=True):
+        with st.expander("Copy Code", expanded=True):
             st.code('''
 import plotly.express as px
 import style
@@ -336,11 +336,11 @@ st.plotly_chart(fig, use_container_width=True)
 ''', language="python")
 
     with col2:
-        st.markdown("#### 🔹 Multi-Line Chart")
+        st.markdown("#### Multi-Line Chart")
         fig_line = px.line(df_sample, x='Date', y=['Confirmed', 'Recovered'], markers=True, color_discrete_sequence=[style.COLORS['danger'], style.COLORS['success']])
         fig_line.update_layout(**common_layout)
         st.plotly_chart(fig_line, use_container_width=True)
-        with st.expander("📝 전체 소스 코드 보기", expanded=True):
+        with st.expander("Copy Code", expanded=True):
             st.code('''
 import plotly.express as px
 import style
@@ -362,11 +362,11 @@ st.plotly_chart(fig, use_container_width=True)
 with tab2:
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown("#### 🔹 Donut Chart")
+        st.markdown("#### Donut Chart")
         fig_pie = px.pie(values=[60, 30, 10], names=['A', 'B', 'C'], hole=0.6, color_discrete_sequence=[style.COLORS['primary'], style.COLORS['info'], style.COLORS['bg_card']])
         fig_pie.update_layout(paper_bgcolor='rgba(0,0,0,0)', showlegend=True, font_color='white')
         st.plotly_chart(fig_pie, use_container_width=True)
-        with st.expander("📝 전체 소스 코드 보기", expanded=True):
+        with st.expander("Copy Code", expanded=True):
             st.code('''
 fig = px.pie(values=[60, 30, 10], names=['A', 'B', 'C'], hole=0.6,
              color_discrete_sequence=[style.COLORS['primary'], style.COLORS['info'], style.COLORS['bg_card']])
@@ -381,11 +381,11 @@ st.plotly_chart(fig, use_container_width=True)
 ''', language="python")
 
     with col2:
-        st.markdown("#### 🔹 Treemap")
+        st.markdown("#### Treemap")
         fig_tree = px.treemap(df_long, path=['Type'], values='Count', color='Type', color_discrete_sequence=[style.COLORS['primary'], style.COLORS['success'], style.COLORS['info']])
         fig_tree.update_layout(paper_bgcolor='rgba(0,0,0,0)', margin=dict(t=0, l=0, r=0, b=0))
         st.plotly_chart(fig_tree, use_container_width=True)
-        with st.expander("📝 전체 소스 코드 보기", expanded=True):
+        with st.expander("Copy Code", expanded=True):
             st.code('''
 fig = px.treemap(df, path=['Type'], values='Count', color='Type',
                  color_discrete_sequence=[style.COLORS['primary'], style.COLORS['success'], style.COLORS['info']])
@@ -397,14 +397,14 @@ st.plotly_chart(fig, use_container_width=True)
 ''', language="python")
 
 with tab3:
-    st.markdown("#### 🔹 Radar Chart")
+    st.markdown("#### Radar Chart")
     categories = ['Confirmed', 'Deaths', 'Recovered', 'Tests', 'Vaccinated']
     fig_radar = go.Figure()
     fig_radar.add_trace(go.Scatterpolar(r=[20, 5, 95, 85, 90], theta=categories, fill='toself', name='Korea', line_color=style.COLORS['success'], fillcolor='rgba(5, 205, 153, 0.2)'))
     fig_radar.add_trace(go.Scatterpolar(r=[85, 40, 60, 30, 45], theta=categories, fill='toself', name='High Risk', line_color=style.COLORS['danger'], fillcolor='rgba(255, 91, 91, 0.2)'))
     fig_radar.update_layout(polar=dict(bgcolor=style.COLORS['bg_card'], radialaxis=dict(visible=True, range=[0, 100], color=style.COLORS['text_sub'], gridcolor=style.COLORS['border'])), paper_bgcolor='rgba(0,0,0,0)', font_color=style.COLORS['text_main'], showlegend=True)
     st.plotly_chart(fig_radar, use_container_width=True)
-    with st.expander("📝 전체 소스 코드 보기", expanded=True):
+    with st.expander("Copy Code", expanded=True):
         st.code('''
 import plotly.graph_objects as go
 import style
@@ -427,11 +427,11 @@ st.plotly_chart(fig, use_container_width=True)
 ''', language="python")
 
 with tab4:
-    st.markdown("#### 🔹 3D Column Map")
+    st.markdown("#### 3D Column Map")
     map_data = pd.DataFrame({'lat': [37.5, 35.1, 35.6], 'lon': [126.9, 129.0, 139.6], 'cases': [5000, 3000, 8000]})
     layer = pdk.Layer("ColumnLayer", map_data, get_position=["lon", "lat"], get_elevation="cases", elevation_scale=200, radius=40000, get_fill_color=[123, 97, 255, 255], pickable=True, auto_highlight=True)
     st.pydeck_chart(pdk.Deck(layers=[layer], initial_view_state=pdk.ViewState(latitude=36, longitude=130, zoom=3, pitch=50), map_style=None))
-    with st.expander("📝 전체 소스 코드 보기", expanded=True):
+    with st.expander("Copy Code", expanded=True):
         st.code('''
 import pydeck as pdk
 
