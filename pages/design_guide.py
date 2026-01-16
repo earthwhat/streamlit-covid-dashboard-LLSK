@@ -163,7 +163,7 @@ with c1:
 """
     st.markdown(header_html, unsafe_allow_html=True)
     with st.expander("Copy Code", expanded=True):
-        st.code($1import streamlit as st
+        st.code('''import streamlit as st
 
 st.markdown("""
 <div style='display: flex; align-items: center; margin-bottom: 10px;'>
@@ -188,7 +188,7 @@ with c2:
 """
     st.markdown(boxed_html, unsafe_allow_html=True)
     with st.expander("Copy Code", expanded=True):
-        st.code($1import streamlit as st
+        st.code('''import streamlit as st
 
 st.markdown("""
 <div style='background: {style.COLORS['bg_card']}; padding: 15px; border-radius: 12px; border: 1px solid {style.COLORS['border']}; display: flex; align-items: center;'>
@@ -243,7 +243,7 @@ with col_ui2:
     </div>
     """, unsafe_allow_html=True)
     with st.expander("Copy Code", expanded=True):
-        st.code($1import streamlit as st
+        st.code('''import streamlit as st
 
 st.markdown("""
 <div class="badge badge-danger">
