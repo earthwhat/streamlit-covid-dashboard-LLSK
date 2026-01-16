@@ -25,19 +25,13 @@ st.markdown(f"""
     [data-testid="stSidebar"] {{
         display: none;
     }}
-    /* 메인 콘텐츠 왼쪽 여백 확보 */
+    /* 메인 콘텐츠 패딩 조정 (데스크톱 기준) */
     .main .block-container {{
-        /* Streamlit 기본 중앙 정렬 정책 준수 */
         margin-left: auto !important;
         margin-right: auto !important;
-        
-        /* 사이드바(50px) 공간만큼 내부 여백 추가 (3rem + 3rem) */
         padding-left: 6rem !important;
         padding-right: 3rem !important;
-        
-        /* 고해상도 모니터에서 우측 여백이 남는 문제 해결 (너비 제한 해제) */
         max-width: none !important;
-        
         padding-top: 1rem !important;
     }}
     /* 커스텀 사이드바 컨테이너 */
@@ -45,11 +39,36 @@ st.markdown(f"""
         position: fixed;
         left: 0; top: 0;
         width: 50px; height: 100vh;
-        background-color: transparent;
-        border-right: none;
+        background-color: {style.COLORS['bg_main']};
+        border-right: 1px solid {style.COLORS['border']};
         display: flex; flex-direction: column; align-items: center;
         padding-top: 20px; z-index: 999999;
     }}
+
+    /* 모바일 대응 (768px 이하) */
+    @media (max-width: 768px) {{
+        .custom-sidebar {{
+            width: 100%;
+            height: 50px;
+            bottom: 0;
+            top: auto;
+            flex-direction: row;
+            justify-content: center;
+            padding-top: 0;
+            border-right: none;
+            border-top: 1px solid {style.COLORS['border']};
+        }}
+        .main .block-container {{
+            padding-left: 1.5rem !important;
+            padding-right: 1.5rem !important;
+            padding-bottom: 5rem !important;
+        }}
+        .sidebar-btn {{
+            margin-bottom: 0 !important;
+            margin-right: 15px;
+        }}
+    }}
+
     /* 아이콘 버튼 스타일 */
     .sidebar-btn {{
         width: 34px; height: 34px;
@@ -72,13 +91,13 @@ st.markdown(f"""
 
 <div class="custom-sidebar">
     <!-- Dashboard Link -->
-    <a href="/" target="_self" style="text-decoration: none;">
+    <a href="/" target="_self" style="text-decoration: none;" aria-label="Dashboard">
         <div class="sidebar-btn" title="Dashboard">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
         </div>
     </a>
     <!-- Design Guide Link -->
-    <a href="/design_guide" target="_self" style="text-decoration: none;">
+    <a href="/design_guide" target="_self" style="text-decoration: none;" aria-label="Design Guide">
         <div class="sidebar-btn active" title="Design Guide">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
         </div>
@@ -144,7 +163,8 @@ with c1:
 """
     st.markdown(header_html, unsafe_allow_html=True)
     with st.expander("Copy Code", expanded=True):
-        st.code(f'''
+        st.code($1import streamlit as st
+
 st.markdown("""
 <div style='display: flex; align-items: center; margin-bottom: 10px;'>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" 
@@ -168,7 +188,8 @@ with c2:
 """
     st.markdown(boxed_html, unsafe_allow_html=True)
     with st.expander("Copy Code", expanded=True):
-        st.code(f'''
+        st.code($1import streamlit as st
+
 st.markdown("""
 <div style='background: {style.COLORS['bg_card']}; padding: 15px; border-radius: 12px; border: 1px solid {style.COLORS['border']}; display: flex; align-items: center;'>
     <div class="icon-box" style="margin-right:15px">
@@ -222,7 +243,8 @@ with col_ui2:
     </div>
     """, unsafe_allow_html=True)
     with st.expander("Copy Code", expanded=True):
-        st.code('''
+        st.code($1import streamlit as st
+
 st.markdown("""
 <div class="badge badge-danger">
     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg> +15.4%
@@ -301,12 +323,7 @@ df_sample = pd.DataFrame({
 })
 df_long = df_sample.melt(id_vars='Date', value_vars=['Category_A', 'Category_B', 'Category_C'], var_name='Type', value_name='Count')
 
-common_layout = dict(
-    paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
-    font_color=style.COLORS['text_sub'],
-    xaxis=dict(showgrid=False), yaxis=dict(gridcolor=style.COLORS['border']),
-    legend=dict(orientation="h", y=1.1)
-)
+chart_layout = style.get_chart_layout()
 
 tab1, tab2, tab3, tab4 = st.tabs(["Basic", "Composition", "Radar", "3D Map"])
 
@@ -315,7 +332,7 @@ with tab1:
     with col1:
         st.markdown("#### Stacked Bar Chart")
         fig_stack = px.bar(df_long, x='Date', y='Count', color='Type', color_discrete_sequence=[style.COLORS['primary'], style.COLORS['success'], style.COLORS['info']])
-        fig_stack.update_layout(**common_layout)
+        fig_stack.update_layout(**chart_layout)
         st.plotly_chart(fig_stack, use_container_width=True)
         with st.expander("Copy Code", expanded=True):
             st.code('''
@@ -325,20 +342,14 @@ import style
 fig = px.bar(df, x='Date', y='Count', color='Type',
              color_discrete_sequence=[style.COLORS['primary'], style.COLORS['success'], style.COLORS['info']])
 
-fig.update_layout(
-    paper_bgcolor='rgba(0,0,0,0)', 
-    plot_bgcolor='rgba(0,0,0,0)',
-    font_color=style.COLORS['text_sub'],
-    xaxis=dict(showgrid=False), 
-    yaxis=dict(gridcolor=style.COLORS['border'])
-)
+fig.update_layout(**style.get_chart_layout())
 st.plotly_chart(fig, use_container_width=True)
 ''', language="python")
 
     with col2:
         st.markdown("#### Multi-Line Chart")
         fig_line = px.line(df_sample, x='Date', y=['Confirmed', 'Recovered'], markers=True, color_discrete_sequence=[style.COLORS['danger'], style.COLORS['success']])
-        fig_line.update_layout(**common_layout)
+        fig_line.update_layout(**chart_layout)
         st.plotly_chart(fig_line, use_container_width=True)
         with st.expander("Copy Code", expanded=True):
             st.code('''
@@ -348,14 +359,7 @@ import style
 fig = px.line(df, x='Date', y=['Confirmed', 'Recovered'], markers=True,
               color_discrete_sequence=[style.COLORS['danger'], style.COLORS['success']])
 
-fig.update_layout(
-    paper_bgcolor='rgba(0,0,0,0)', 
-    plot_bgcolor='rgba(0,0,0,0)',
-    font_color=style.COLORS['text_sub'],
-    xaxis=dict(showgrid=False), 
-    yaxis=dict(gridcolor=style.COLORS['border']),
-    legend=dict(orientation="h", y=1.1)
-)
+fig.update_layout(**style.get_chart_layout())
 st.plotly_chart(fig, use_container_width=True)
 ''', language="python")
 
@@ -368,14 +372,16 @@ with tab2:
         st.plotly_chart(fig_pie, use_container_width=True)
         with st.expander("Copy Code", expanded=True):
             st.code('''
+import plotly.express as px
+import style
+
 fig = px.pie(values=[60, 30, 10], names=['A', 'B', 'C'], hole=0.6,
              color_discrete_sequence=[style.COLORS['primary'], style.COLORS['info'], style.COLORS['bg_card']])
 
 fig.update_layout(
-    paper_bgcolor='rgba(0,0,0,0)', 
-    showlegend=True, 
-    font_color='white',
-    annotations=[dict(text='60%', x=0.5, y=0.5, font_size=24, showarrow=False)]
+    **style.get_chart_layout(),
+    showlegend=True,
+    annotations=[dict(text='60%', x=0.5, y=0.5, font_size=24, showarrow=False, font=dict(color='white'))]
 )
 st.plotly_chart(fig, use_container_width=True)
 ''', language="python")
@@ -387,11 +393,15 @@ st.plotly_chart(fig, use_container_width=True)
         st.plotly_chart(fig_tree, use_container_width=True)
         with st.expander("Copy Code", expanded=True):
             st.code('''
+import plotly.express as px
+import style
+
 fig = px.treemap(df, path=['Type'], values='Count', color='Type',
                  color_discrete_sequence=[style.COLORS['primary'], style.COLORS['success'], style.COLORS['info']])
 
 fig.update_layout(
-    paper_bgcolor='rgba(0,0,0,0)', margin=dict(t=0, l=0, r=0, b=0)
+    **style.get_chart_layout(),
+    margin=dict(t=0, l=0, r=0, b=0)
 )
 st.plotly_chart(fig, use_container_width=True)
 ''', language="python")
