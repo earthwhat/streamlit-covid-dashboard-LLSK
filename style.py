@@ -17,6 +17,43 @@ COLORS = {
 # 차트용 컬러 시퀀스 (Plotly용)
 CHART_SEQ = [COLORS['primary'], COLORS['success'], COLORS['danger'], COLORS['warning'], COLORS['info']]
 
+def get_chart_layout():
+    """
+    Plotly 차트의 공통 다크 테마 레이아웃을 반환합니다.
+    """
+    return dict(
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)',
+        font_color=COLORS['text_sub'],
+        margin=dict(t=40, l=0, r=0, b=0),
+        xaxis=dict(
+            showgrid=False,
+            zeroline=False,
+            tickfont=dict(color=COLORS['text_sub']),
+            title_font=dict(color=COLORS['text_sub'])
+        ),
+        yaxis=dict(
+            showgrid=True,
+            gridcolor=COLORS['border'],
+            zeroline=False,
+            tickfont=dict(color=COLORS['text_sub']),
+            title_font=dict(color=COLORS['text_sub'])
+        ),
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1,
+            font=dict(color=COLORS['text_sub'])
+        ),
+        hoverlabel=dict(
+            bgcolor=COLORS['bg_card'],
+            font_size=13,
+            font_family="Pretendard"
+        )
+    )
+
 def apply_hynex_style():
     st.markdown(f"""
         <style>
